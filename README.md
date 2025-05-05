@@ -1,51 +1,131 @@
-# Introduction to GitHub
+# Sistema de Recuperación Aumentada por Generación (RAG) para la Primera Infancia
 
-_Get started using GitHub in less than an hour._
+Este proyecto implementa un sistema de **Recuperación Aumentada por Generación (RAG)** enfocado en brindar respuestas confiables a preguntas frecuentes relacionadas con el desarrollo en la primera infancia, utilizando fuentes científicas y oficiales en español e inglés.
 
-## Welcome
+## Objetivo
 
-People use GitHub to build some of the most advanced technologies in the world. Whether you’re visualizing data or building a new game, there’s a whole community and set of tools on GitHub that can help you do it even better. GitHub Skills’ “Introduction to GitHub” exercise guides you through everything you need to start contributing in less than an hour.
-
-- **Who is this for**: New developers, new GitHub users, and students.
-- **What you'll learn**: We'll introduce repositories, branches, commits, and pull requests.
-- **What you'll build**: We'll make a short Markdown file you can use as your [profile README](https://docs.github.com/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme).
-- **Prerequisites**: None. This exercise is a great introduction for your first day on GitHub.
-- **How long**: This exercise takes less than one hour to complete.
-
-In this exercise, you will:
-
-1. Create a branch
-2. Commit a file
-3. Open a pull request
-4. Merge your pull request
-
-### How to start this exercise
-
-1. Right-click **Copy Exercise** and open the link in a new tab.
-
-   <a id="copy-exercise">
-      <img src="https://img.shields.io/badge/📠_Copy_Exercise-AAA" height="25pt"/>
-   </a>
-
-2. In the new tab, most of the prompts will automatically fill in for you.
-   - For owner, choose your personal account or an organization to host the repository.
-   - We recommend creating a public repository, as private repositories will [use Actions minutes](https://docs.github.chttps://github.com/andrea-aguilera/ama388/billing/managing-billing-for-github-actions/about-billing-for-github-actions).
-   - Scroll down and click the **Create repository** button at the bottom of the form.
-
-3. After your new repository is created, wait about 20 seconds for the exercise to be prepared and buttons updated. You will continue working from your copy of the exercise.
-   - The **Copy Exercise** button will deactivate, changing to gray.
-   - The **Start Exercise** button will activate, changing to green.
-   - You will likely need to refresh the page.
-
-4. Click **Start Exercise**. Follow the step-by-step instructions and feedback will be provided as you progress.
-
-   <a id="start-exercise" href="https://github.com/andrea-aguilera/ama388/issues/1">
-      <img src="https://img.shields.io/badge/🚀_Start_Exercise-008000" height="25pt"/>
-   </a>
-
-> [!IMPORTANT]
-> The **Start Exercise** button will activate after copying the repository. You will probably need to refresh the page.
+Ofrecer un sistema automatizado que asista a padres, madres y cuidadores con información clara y basada en evidencia científica, aprovechando tecnologías modernas de procesamiento de lenguaje natural (PLN) como embeddings multilingües, recuperación semántica y generación con modelos LLM.
 
 ---
 
-&copy; 2025 GitHub &bull; [Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md) &bull; [MIT License](https://gh.io/mit)
+## Tecnologías y herramientas
+
+- `LangChain`: framework del pipeline RAG
+- `FAISS`: base vectorial para búsqueda semántica
+- `PyMuPDF`: lectura y extracción de texto desde PDFs
+- `Hugging Face`: embeddings multilingües (`paraphrase-multilingual-MiniLM-L12-v2`)
+- `Groq API`: generación de respuestas con LLaMA 3 (70B)
+- `Google Colab`: entorno de desarrollo
+- `dotenv`: manejo de variables de entorno
+
+---
+
+## Estructura del proyecto
+
+```
+
+proyecto\_rag/
+├── corpus/                    # Carpeta con documentos PDF (español/inglés)
+│   └── ...
+├── .env                       # Contiene tu GROQ\_API\_KEY
+├── vectorstore/              # Base FAISS generada localmente
+├── scripts/
+│   ├── carga\_documentos.py   # Carga y chunking de PDFs
+│   ├── embeddings\_faiss.py   # Generación de embeddings y base vectorial
+│   ├── qa\_rag\_chain.py       # Configuración del RAG y generación de respuestas
+│   └── evaluacion.py         # Métricas BERTScore y ROUGE-L
+└── README.md
+
+````
+
+---
+
+## Cómo ejecutar el proyecto
+
+> Recomendado: ejecutar desde [Google Colab](https://colab.research.google.com/drive/1qIW3imwW_JShjl1W8I1pZ0fDVJE8gVTE?usp=sharing)
+
+### 1. Clonar el repositorio
+```bash
+git clone https://github.com/tu_usuario/proyecto_rag_infancia.git
+cd proyecto_rag_infancia
+````
+
+### 2. Instalar dependencias
+
+```bash
+pip install -r requirements.txt
+```
+
+O manualmente:
+
+```bash
+pip install langchain faiss-cpu pymupdf sentence-transformers huggingface-hub python-dotenv
+pip install -U langchain-community langchain-groq tqdm evaluate transformers
+```
+
+### 3. Configurar el archivo `.env` que contiene la clave individual de API de Groq
+
+Crear un archivo `.env` en la raíz del proyecto con el siguiente contenido:
+
+```env
+GROQ_API_KEY=la_clave_aqui
+```
+
+---
+
+### 4. Ejecutar los scripts
+
+* **Cargar y fragmentar documentos:**
+
+```bash
+python scripts/carga_documentos.py
+```
+
+* **Generar embeddings y guardar base FAISS:**
+
+```bash
+python scripts/embeddings_faiss.py
+```
+
+* **Ejecutar cadena RAG y hacer preguntas:**
+
+```bash
+python scripts/qa_rag_chain.py
+```
+
+* **Evaluar las respuestas generadas:**
+
+```bash
+python scripts/evaluacion.py
+```
+
+---
+
+## Evaluación del sistema
+
+Se evaluó el modelo con:
+
+* **BERTScore F1**: coherencia semántica
+* **ROUGE-L F1**: coincidencia estructural con respuestas esperadas
+
+| Pregunta                  | BERTScore F1 | ROUGE-L F1 |
+| ------------------------- | ------------ | ---------- |
+| Cuidados básicos          | 0.744        | 0.303      |
+| Estimulación del lenguaje | 0.723        | 0.311      |
+| Vacunas                   | 0.798        | 0.400      |
+| Lactancia                 | 0.833        | 0.414      |
+| Etapas antes de caminar   | 0.761        | 0.311      |
+
+---
+
+## Licencia
+
+Este proyecto está disponible bajo la licencia MIT.
+Para más información, consultá el archivo `LICENSE`.
+
+---
+
+## 📬 Contacto
+
+**Andrea Aguilera**
+[Email](andream.aguilera.r@gmail.com) | [GitHub](ama388)
