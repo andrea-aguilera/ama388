@@ -42,7 +42,7 @@ proyecto\_rag/
 
 ## Cómo ejecutar el proyecto
 
-> Recomendado: ejecutar desde [Google Colab](https://colab.research.google.com/drive/1qIW3imwW_JShjl1W8I1pZ0fDVJE8gVTE?usp=sharing)
+> Recomendado: ejecutar desde [Google Colab](https://colab.research.google.com/drive/14OIxHXg9nbbCMW3q7m3uYl-p5BGGy9BU?usp=sharing)
 
 ### 1. Clonar el repositorio
 ```bash
