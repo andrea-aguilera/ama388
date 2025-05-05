@@ -1,0 +1,1 @@
+langchainfaiss-cpupymupdfsentence-transformershuggingface-hubpython-dotenvlangchain-communitylangchain-groqtqdmevaluatetransformers
