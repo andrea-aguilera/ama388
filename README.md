@@ -42,7 +42,7 @@ proyecto\_rag/
 
 ## Cómo ejecutar el proyecto
 
-> Recomendado: ejecutar desde [Google Colab](https://colab.research.google.com/drive/14OIxHXg9nbbCMW3q7m3uYl-p5BGGy9BU?usp=sharing)
+> Recomendado: ejecutar desde Google Colab
 
 ### 1. Clonar el repositorio
 ```bash
@@ -64,12 +64,6 @@ pip install -U langchain-community langchain-groq tqdm evaluate transformers
 ```
 
 ### 3. Configurar el archivo `.env` que contiene la clave individual de API de Groq
-
-Crear un archivo `.env` en la raíz del proyecto con el siguiente contenido:
-
-```env
-GROQ_API_KEY=la_clave_aqui
-```
 
 ---
 
@@ -125,7 +119,43 @@ Para más información, consultá el archivo `LICENSE`.
 
 ---
 
-## 📬 Contacto
+## Datos
+
+Los documentos utilizados en este proyecto se encuentran en formato PDF (español e inglés) y fueron recolectados manualmente desde fuentes oficiales como la OMS, UNICEF, CDC, OPS y SciELO.
+
+**Instrucciones de descarga del corpus**:
+
+- Los archivos en PDF se encuentran disponibles en el siguiente enlace de [Google Drive](https://drive.google.com/drive/folders/1vHez-UEO0x_IR9VKbglJjmk6Lz9sN7hD?usp=sharing)
+
+````
+- En caso de usar Google Colab, podés sincronizar el corpus desde Google Drive:
+```python
+from google.colab import drive
+drive.mount('/content/drive')
+````
+
+⚠️ Por razones de derechos de autor, los PDFs no se incluyen directamente en este repositorio.
+
+---
+
+## Ejemplo de uso e interpretación
+
+Se incluye un notebook interactivo que permite ejecutar el sistema paso a paso y observar cómo se genera una respuesta basada en el corpus cargado.
+
+**Notebook en Google Colab**:
+[![Abrir en Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/14OIxHXg9nbbCMW3q7m3uYl-p5BGGy9BU?usp=share_link)
+
+**Archivo en el repositorio**:
+[`notebooks/rag_demo.ipynb`](notebooks/rag_demo.ipynb)
+
+Este ejemplo incluye:
+
+* Consulta de preguntas frecuentes
+* Respuestas generadas por el modelo
+* Visualización de contexto recuperado
+* Evaluación automática con métricas BERTScore y ROUGE-L
+
+## Contacto
 
 **Andrea Aguilera**
 [Email](andream.aguilera.r@gmail.com) | [GitHub](ama388)
